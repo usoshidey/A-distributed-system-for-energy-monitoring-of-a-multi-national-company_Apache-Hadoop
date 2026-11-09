@@ -1,0 +1,373 @@
+/* ==============================================================================
+   Distributed Energy Monitoring System - Theme & UI Styles
+   Theme: Executive Dark Blue & Crisp White
+   ============================================================================== */
+
+:root {
+    --primary-blue: #1e3a8a;       /* Deep corporate blue */
+    --primary-hover: #172554;
+    --accent-blue: #2563eb;        /* Vibrant UI blue */
+    --accent-cyan: #06b6d4;        /* Metric highlight */
+    --dark-sidebar: #0f172a;       /* Dark slate / navy sidebar */
+    --dark-sidebar-hover: #1e293b;
+    --dark-sidebar-active: #3b82f6;
+    --bg-surface: #f8fafc;         /* Crisp clean page background */
+    --card-bg: #ffffff;
+    --card-border: #e2e8f0;
+    --text-primary: #0f172a;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --danger-accent: #ef4444;
+    --warning-accent: #f59e0b;
+    --success-accent: #10b981;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    overflow-x: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   App Layout with Responsive Sidebar
+   -------------------------------------------------------------------------- */
+.app-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 260px;
+    background-color: var(--dark-sidebar);
+    color: #ffffff;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.sidebar-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-brand {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.sidebar-brand span.badge-hadoop {
+    font-size: 0.65rem;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #000;
+    font-weight: 800;
+    padding: 0.2rem 0.45rem;
+    border-radius: 4px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 1rem 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.75rem 1.5rem;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+}
+
+.sidebar-menu li a:hover {
+    color: #ffffff;
+    background-color: var(--dark-sidebar-hover);
+}
+
+.sidebar-menu li a.active {
+    color: #ffffff;
+    background-color: rgba(37, 99, 235, 0.18);
+    border-left-color: var(--dark-sidebar-active);
+    font-weight: 600;
+}
+
+.sidebar-menu li a i {
+    font-size: 1.1rem;
+    width: 22px;
+    text-align: center;
+}
+
+.sidebar-footer {
+    padding: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.82rem;
+    color: #94a3b8;
+}
+
+.content-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Top Navbar
+   -------------------------------------------------------------------------- */
+.top-navbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.85rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cluster-pill {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 50px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.cluster-pill.online {
+    background-color: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.cluster-pill.fallback {
+    background-color: #eff6ff;
+    color: #1e40af;
+    border: 1px solid #bfdbfe;
+}
+
+/* --------------------------------------------------------------------------
+   Cards and KPI Metrics
+   -------------------------------------------------------------------------- */
+.main-content {
+    padding: 2rem;
+}
+
+.kpi-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 1.4rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%;
+}
+
+.kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+.kpi-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.kpi-icon.blue { background-color: #dbeafe; color: #1d4ed8; }
+.kpi-icon.green { background-color: #d1fae5; color: #047857; }
+.kpi-icon.amber { background-color: #fef3c7; color: #b45309; }
+.kpi-icon.indigo { background-color: #e0e7ff; color: #4338ca; }
+.kpi-icon.red { background-color: #fee2e2; color: #b91c1c; }
+
+.kpi-title {
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    margin-bottom: 0.35rem;
+}
+
+.kpi-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+.kpi-sub {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.35rem;
+}
+
+/* --------------------------------------------------------------------------
+   Charts and Panel Cards
+   -------------------------------------------------------------------------- */
+.panel-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+.panel-card-header {
+    padding: 1.15rem 1.5rem;
+    border-bottom: 1px solid var(--card-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+}
+
+.panel-card-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.panel-card-body {
+    padding: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Tables
+   -------------------------------------------------------------------------- */
+.table-custom {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.table-custom th {
+    background-color: #f8fafc;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.table-custom td {
+    padding: 0.85rem 1rem;
+    vertical-align: middle;
+    font-size: 0.88rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.table-custom tbody tr:hover {
+    background-color: #f1f5f9;
+}
+
+/* --------------------------------------------------------------------------
+   Badges & Severity
+   -------------------------------------------------------------------------- */
+.badge-office {
+    background-color: #e0f2fe;
+    color: #0369a1;
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+}
+
+.badge-factory {
+    background-color: #fef3c7;
+    color: #92400e;
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+}
+
+.badge-sev-critical {
+    background-color: #fee2e2;
+    color: #991b1b;
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+}
+
+.badge-sev-high {
+    background-color: #ffedd5;
+    color: #9a3412;
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+}
+
+.badge-sev-warning {
+    background-color: #fef9c3;
+    color: #854d0e;
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+}
+
+/* --------------------------------------------------------------------------
+   Big Data Terminal / Console Output
+   -------------------------------------------------------------------------- */
+.terminal-console {
+    background-color: #0b1120;
+    color: #38bdf8;
+    font-family: "Consolas", "Monaco", "Courier New", monospace;
+    font-size: 0.85rem;
+    padding: 1.25rem;
+    border-radius: 8px;
+    max-height: 380px;
+    overflow-y: auto;
+    line-height: 1.5;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.terminal-console .term-cmd { color: #4ade80; font-weight: bold; }
+.terminal-console .term-info { color: #cbd5e1; }
+.terminal-console .term-success { color: #34d399; font-weight: bold; }
+.terminal-console .term-warn { color: #fbbf24; }
+
+/* --------------------------------------------------------------------------
+   Responsive Mobile Adjustments
+   -------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+    .sidebar {
+        position: fixed;
+        left: -260px;
+        top: 0;
+        bottom: 0;
+    }
+    .sidebar.open {
+        left: 0;
+    }
+    .main-content {
+        padding: 1rem;
+    }
+}
+

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Dashboard - Distributed Energy Monitoring Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="app-wrapper">
+    <!-- Responsive Dark Blue Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="sidebar-brand">
+                <i class="bi bi-lightning-charge-fill text-warning"></i>
+                <span>Apex Global</span>
+                <span class="badge-hadoop">HADOOP</span>
+            </a>
+        </div>
+        <ul class="sidebar-menu">
+            <li>
+                <a href="dashboard.html" class="active">
+                    <i class="bi bi-speedometer2"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="countries.html">
+                    <i class="bi bi-globe-americas"></i>
+                    <span>Countries</span>
+                </a>
+            </li>
+            <li>
+                <a href="branches.html">
+                    <i class="bi bi-building"></i>
+                    <span>Branches</span>
+                </a>
+            </li>
+            <li>
+                <a href="energy-monitoring.html">
+                    <i class="bi bi-activity"></i>
+                    <span>Energy Monitoring</span>
+                </a>
+            </li>
+            <li>
+                <a href="analytics.html">
+                    <i class="bi bi-diagram-3-fill"></i>
+                    <span>Analytics</span>
+                </a>
+            </li>
+            <li>
+                <a href="alerts.html">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    <span>Alerts</span>
+                </a>
+            </li>
+            <li>
+                <a href="reports.html">
+                    <i class="bi bi-file-earmark-bar-graph"></i>
+                    <span>Reports</span>
+                </a>
+            </li>
+            <li>
+                <a href="settings.html">
+                    <i class="bi bi-gear-fill"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+            <li class="mt-4">
+                <a href="javascript:void(0)" onclick="API.logout()" class="text-danger">
+                    <i class="bi bi-box-arrow-left"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <div class="small fw-bold">Distributed Big Data Platform</div>
+            <div class="text-muted" style="font-size: 0.72rem;">Apache Hadoop 3.2 & Hive & Flask</div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="content-wrapper">
+        <!-- Top Navbar -->
+        <header class="top-navbar">
+            <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-sm btn-outline-secondary d-lg-none" id="sidebarToggle">
+                    <i class="bi bi-list fs-5"></i>
+                </button>
+                <h5 class="m-0 fw-bold text-dark d-none d-sm-block">Multinational Energy Telemetry Dashboard</h5>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <!-- Hadoop Cluster Health Pill -->
+                <span id="badge-cluster-status" class="cluster-pill fallback">
+                    <i class="bi bi-cpu"></i> Connecting to Big Data Engine...
+                </span>
+
+                <!-- User Profile Badge -->
+                <div class="d-flex align-items-center gap-2 border-start ps-3">
+                    <div class="text-end d-none d-md-block">
+                        <div class="fw-bold small" id="nav-user-name">Administrator</div>
+                        <div class="text-muted" style="font-size:0.75rem" id="nav-user-role">Global Admin</div>
+                    </div>
+                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width:36px; height:36px; font-weight:700;">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard View -->
+        <main class="main-content">
+            <!-- 6 KPI Stat Cards -->
+            <div class="row g-3 mb-4">
+                <!-- Global Consumption -->
+                <div class="col-sm-6 col-xl-2">
+                    <div class="kpi-card">
+                        <div class="kpi-icon blue"><i class="bi bi-lightning-charge"></i></div>
+                        <div class="kpi-title">Global Consumption</div>
+                        <div class="kpi-value" id="kpi-global-kwh" style="font-size:1.35rem">Loading...</div>
+                        <div class="kpi-sub">Total energy metered</div>
+                    </div>
+                </div>
+
+                <!-- Global Expenditure -->
+                <div class="col-sm-6 col-xl-2">
+                    <div class="kpi-card">
+                        <div class="kpi-icon green"><i class="bi bi-currency-dollar"></i></div>
+                        <div class="kpi-title">Electricity Cost</div>
+                        <div class="kpi-value text-success" id="kpi-global-cost" style="font-size:1.35rem">Loading...</div>
+                        <div class="kpi-sub">Normalized USD total</div>
+                    </div>
+                </div>
+
+                <!-- Countries -->
+                <div class="col-sm-6 col-xl-2">
+                    <div class="kpi-card">
+                        <div class="kpi-icon indigo"><i class="bi bi-globe-americas"></i></div>
+                        <div class="kpi-title">Countries</div>
+                        <div class="kpi-value" id="kpi-countries-count">4</div>
+                        <div class="kpi-sub">IND, USA, DEU, JPN</div>
+                    </div>
+                </div>
+
+                <!-- Branches -->
+                <div class="col-sm-6 col-xl-2">
+                    <div class="kpi-card">
+                        <div class="kpi-icon amber"><i class="bi bi-buildings"></i></div>
+                        <div class="kpi-title">Branches</div>
+                        <div class="kpi-value" id="kpi-branches-count">9</div>
+                        <div class="kpi-sub">5 Offices, 4 Factories</div>
+                    </div>
+                </div>
+
+                <!-- Highest Country -->
+                <div class="col-sm-6 col-xl-2">
+                    <div class="kpi-card">
+                        <div class="kpi-icon blue"><i class="bi bi-trophy"></i></div>
+                        <div class="kpi-title">Top Country</div>
+                        <div class="kpi-value" id="kpi-highest-country" style="font-size:1.35rem">Loading...</div>
+                        <div class="kpi-sub">Highest load region</div>
+                    </div>
+                </div>
+
+                <!-- Pending Alerts -->
+                <div class="col-sm-6 col-xl-2">
+                    <div class="kpi-card">
+                        <div class="kpi-icon red"><i class="bi bi-bell-fill"></i></div>
+                        <div class="kpi-title">Active Alerts</div>
+                        <div class="kpi-value text-danger" id="kpi-pending-alerts">0</div>
+                        <div class="kpi-sub">&gt;1.5x baseline spikes</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row 1: Daily Trend & Monthly Trend -->
+            <div class="row g-3 mb-4">
+                <div class="col-lg-8">
+                    <div class="panel-card h-100">
+                        <div class="panel-card-header">
+                            <h6 class="panel-card-title">
+                                <i class="bi bi-graph-up text-primary"></i> Daily Energy Consumption Trend (kWh)
+                            </h6>
+                            <span class="badge bg-light text-muted border">Past 30 Days</span>
+                        </div>
+                        <div class="panel-card-body">
+                            <div style="height: 280px;">
+                                <canvas id="chartDaily"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="panel-card h-100">
+                        <div class="panel-card-header">
+                            <h6 class="panel-card-title">
+                                <i class="bi bi-calendar3 text-primary"></i> Monthly Aggregation
+                            </h6>
+                            <span class="badge bg-light text-muted border">YTD</span>
+                        </div>
+                        <div class="panel-card-body">
+                            <div style="height: 280px;">
+                                <canvas id="chartMonthly"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row 2: Country Comparison, Branch Comparison, Distribution Pie -->
+            <div class="row g-3 mb-4">
+                <!-- Country Comparison -->
+                <div class="col-lg-4">
+                    <div class="panel-card h-100">
+                        <div class="panel-card-header">
+                            <h6 class="panel-card-title">
+                                <i class="bi bi-bar-chart-fill text-primary"></i> Country-Wise Comparison
+                            </h6>
+                        </div>
+                        <div class="panel-card-body">
+                            <div style="height: 250px;">
+                                <canvas id="chartCountry"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Branch-wise Horizontal Bar -->
+                <div class="col-lg-4">
+                    <div class="panel-card h-100">
+                        <div class="panel-card-header">
+                            <h6 class="panel-card-title">
+                                <i class="bi bi-building text-primary"></i> Branch-Wise Consumption
+                            </h6>
+                            <span class="small text-muted"><span class="badge badge-factory">Factory</span> <span class="badge badge-office">Office</span></span>
+                        </div>
+                        <div class="panel-card-body">
+                            <div style="height: 250px;">
+                                <canvas id="chartBranch"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Distribution Pie -->
+                <div class="col-lg-4">
+                    <div class="panel-card h-100">
+                        <div class="panel-card-header">
+                            <h6 class="panel-card-title">
+                                <i class="bi bi-pie-chart-fill text-primary"></i> Consumption Share
+                            </h6>
+                        </div>
+                        <div class="panel-card-body">
+                            <div style="height: 250px;">
+                                <canvas id="chartDistributionPie"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tables Row: Anomaly Alerts & Recent Readings -->
+            <div class="row g-3 mb-4">
+                <!-- Abnormal Consumption Alerts Table -->
+                <div class="col-lg-6">
+                    <div class="panel-card h-100">
+                        <div class="panel-card-header">
+                            <h6 class="panel-card-title text-danger">
+                                <i class="bi bi-exclamation-octagon-fill"></i> Abnormal Consumption Alerts (&gt;1.5x Baseline)
+                            </h6>
+                            <a href="alerts.html" class="btn btn-sm btn-outline-danger">View All</a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-custom">
+                                <thead>
+                                    <tr>
+                                        <th>Branch</th>
+                                        <th>Spike Load</th>
+                                        <th>Avg Load</th>
+                                        <th>Severity</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-recent-alerts">
+                                    <tr><td colspan="6" class="text-center py-3 text-muted">Checking alerts...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Meter Readings Table -->
+                <div class="col-lg-6">
+                    <div class="panel-card h-100">
+                        <div class="panel-card-header">
+                            <h6 class="panel-card-title">
+                                <i class="bi bi-activity text-primary"></i> Recent Energy Telemetry Feed
+                            </h6>
+                            <a href="energy-monitoring.html" class="btn btn-sm btn-outline-primary">Live Monitor</a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-custom">
+                                <thead>
+                                    <tr>
+                                        <th>Reading ID</th>
+                                        <th>Branch</th>
+                                        <th>Country</th>
+                                        <th>Energy</th>
+                                        <th>Voltage</th>
+                                        <th>PF</th>
+                                        <th>Timestamp</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-recent-readings">
+                                    <tr><td colspan="7" class="text-center py-3 text-muted">Streaming readings...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Electricity Tariff and Expenditure Breakdown Card -->
+            <div class="row g-3">
+                <div class="col-12">
+                    <div class="panel-card">
+                        <div class="panel-card-header">
+                            <h6 class="panel-card-title">
+                                <i class="bi bi-cash-stack text-success"></i> Multinational Electricity Expenditure & Local Tariffs
+                            </h6>
+                            <span class="badge bg-warning-subtle text-dark border">Academic Benchmark Tariffs</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-custom">
+                                <thead>
+                                    <tr>
+                                        <th>Country</th>
+                                        <th>Total Energy (kWh)</th>
+                                        <th>Configured Local Tariff</th>
+                                        <th>Total Expenditure (Local Currency)</th>
+                                        <th>Consolidated Total (USD)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-expenditure-breakdown">
+                                    <tr><td colspan="5" class="text-center py-3 text-muted">Calculating tariff expenditures...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>
+

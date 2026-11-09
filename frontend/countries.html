@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countries - Distributed Energy Monitoring Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="app-wrapper">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="sidebar-brand">
+                <i class="bi bi-lightning-charge-fill text-warning"></i>
+                <span>Apex Global</span>
+                <span class="badge-hadoop">HADOOP</span>
+            </a>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html"><i class="bi bi-speedometer2"></i><span>Dashboard</span></a></li>
+            <li><a href="countries.html" class="active"><i class="bi bi-globe-americas"></i><span>Countries</span></a></li>
+            <li><a href="branches.html"><i class="bi bi-building"></i><span>Branches</span></a></li>
+            <li><a href="energy-monitoring.html"><i class="bi bi-activity"></i><span>Energy Monitoring</span></a></li>
+            <li><a href="analytics.html"><i class="bi bi-diagram-3-fill"></i><span>Analytics</span></a></li>
+            <li><a href="alerts.html"><i class="bi bi-exclamation-triangle-fill"></i><span>Alerts</span></a></li>
+            <li><a href="reports.html"><i class="bi bi-file-earmark-bar-graph"></i><span>Reports</span></a></li>
+            <li><a href="settings.html"><i class="bi bi-gear-fill"></i><span>Settings</span></a></li>
+            <li class="mt-4"><a href="javascript:void(0)" onclick="API.logout()" class="text-danger"><i class="bi bi-box-arrow-left"></i><span>Logout</span></a></li>
+        </ul>
+    </aside>
+
+    <!-- Content -->
+    <div class="content-wrapper">
+        <header class="top-navbar">
+            <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-sm btn-outline-secondary d-lg-none" id="sidebarToggle"><i class="bi bi-list fs-5"></i></button>
+                <h5 class="m-0 fw-bold">Operating Countries & National Tariffs</h5>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-primary-subtle text-primary px-3 py-2">4 Multinational Regions</span>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="alert alert-info border-0 shadow-sm d-flex align-items-center gap-3 mb-4">
+                <i class="bi bi-info-circle-fill fs-4 text-primary"></i>
+                <div>
+                    <strong>Multinational Grid Architecture:</strong> Energy telemetry is ingested across 4 country nodes.
+                    Tariffs are calculated in local currencies (India: INR, USA: USD, Germany: EUR, Japan: JPY) and consolidated into global USD totals using currency conversion ratios.
+                </div>
+            </div>
+
+            <!-- Country Cards Container -->
+            <div class="row" id="countries-container">
+                <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <div class="mt-2 text-muted">Loading country metrics...</div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/countries.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,28 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+venv/
+.venv/
+env/
+
+# Unit test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local databases (re-created via python backend/init_db.py)
+*.db
+*.sqlite
+*.sqlite3
+
+# Hadoop compiled classes
+hadoop/build/
+*.class
+
+# OS generated files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings & Cluster Configuration - Distributed Energy Monitoring Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="app-wrapper">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="sidebar-brand">
+                <i class="bi bi-lightning-charge-fill text-warning"></i>
+                <span>Apex Global</span>
+                <span class="badge-hadoop">HADOOP</span>
+            </a>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html"><i class="bi bi-speedometer2"></i><span>Dashboard</span></a></li>
+            <li><a href="countries.html"><i class="bi bi-globe-americas"></i><span>Countries</span></a></li>
+            <li><a href="branches.html"><i class="bi bi-building"></i><span>Branches</span></a></li>
+            <li><a href="energy-monitoring.html"><i class="bi bi-activity"></i><span>Energy Monitoring</span></a></li>
+            <li><a href="analytics.html"><i class="bi bi-diagram-3-fill"></i><span>Analytics</span></a></li>
+            <li><a href="alerts.html"><i class="bi bi-exclamation-triangle-fill"></i><span>Alerts</span></a></li>
+            <li><a href="reports.html"><i class="bi bi-file-earmark-bar-graph"></i><span>Reports</span></a></li>
+            <li><a href="settings.html" class="active"><i class="bi bi-gear-fill"></i><span>Settings</span></a></li>
+            <li class="mt-4"><a href="javascript:void(0)" onclick="API.logout()" class="text-danger"><i class="bi bi-box-arrow-left"></i><span>Logout</span></a></li>
+        </ul>
+    </aside>
+
+    <div class="content-wrapper">
+        <header class="top-navbar">
+            <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-sm btn-outline-secondary d-lg-none" id="sidebarToggle"><i class="bi bi-list fs-5"></i></button>
+                <h5 class="m-0 fw-bold">System Configuration & Big Data Cluster Diagnostics</h5>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Tariff Management Card -->
+            <div class="panel-card mb-4">
+                <div class="panel-card-header">
+                    <h6 class="panel-card-title"><i class="bi bi-currency-exchange text-success"></i> National Electricity Tariffs Configuration</h6>
+                    <span class="badge bg-warning-subtle text-dark border">Illustrative Values</span>
+                </div>
+                <div class="panel-card-body pb-0">
+                    <div class="alert alert-secondary small mb-3">
+                        <i class="bi bi-info-circle me-1"></i> Tariffs are used by the Hive analytics queries and billing services. Rates are illustrative sample values for multinational academic demonstration.
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-custom">
+                        <thead>
+                            <tr>
+                                <th>Country</th>
+                                <th>Currency</th>
+                                <th>Tariff Rate</th>
+                                <th>Effective Since</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-tariffs-body">
+                            <tr><td colspan="5" class="text-center py-3 text-muted">Loading tariffs...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Big Data Cluster Diagnostics -->
+            <div class="row g-3">
+                <div class="col-lg-6">
+                    <div class="panel-card h-100">
+                        <div class="panel-card-header">
+                            <h6 class="panel-card-title"><i class="bi bi-hdd-network text-primary"></i> Big Data Services Health</h6>
+                        </div>
+                        <div class="panel-card-body">
+                            <div class="mb-3 d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="fw-bold">Apache Hadoop YARN & HDFS:</div>
+                                    <div class="small text-muted">MapReduce Job Driver & Telemetry Storage</div>
+                                </div>
+                                <div id="diag-hadoop-status">Checking...</div>
+                            </div>
+                            <hr>
+                            <div class="mb-3 d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="fw-bold">Apache Hive Metastore & SQL:</div>
+                                    <div class="small text-muted">Data Warehouse & Analytics Query Processor</div>
+                                </div>
+                                <div id="diag-hive-status">Checking...</div>
+                            </div>
+                            <hr>
+                            <div>
+                                <div class="fw-bold mb-2">Supported Distributed Node Topology:</div>
+                                <ul class="list-unstyled small mb-0">
+                                    <li class="py-1"><i class="bi bi-check2 text-success me-1"></i> <strong>HDFS Namenode</strong> (Port: 9870 / 9000)</li>
+                                    <li class="py-1"><i class="bi bi-check2 text-success me-1"></i> <strong>HDFS Datanode</strong> (Port: 9864)</li>
+                                    <li class="py-1"><i class="bi bi-check2 text-success me-1"></i> <strong>YARN ResourceManager</strong> (Port: 8088)</li>
+                                    <li class="py-1"><i class="bi bi-check2 text-success me-1"></i> <strong>YARN NodeManager</strong> (Port: 8042)</li>
+                                    <li class="py-1"><i class="bi bi-check2 text-success me-1"></i> <strong>Apache Hive Server 2</strong> (Port: 10000)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="panel-card h-100">
+                        <div class="panel-card-header">
+                            <h6 class="panel-card-title"><i class="bi bi-folder2-open text-primary"></i> HDFS Storage Hierarchy</h6>
+                        </div>
+                        <div class="panel-card-body">
+                            <p class="small text-muted">
+                                The distributed file system organizes corporate telemetry into dedicated partitioned paths:
+                            </p>
+                            <ul class="list-group list-group-flush small" id="diag-hdfs-dirs">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <code>/energy-monitoring/raw-data</code>
+                                    <span class="badge bg-light text-dark border">Raw Telemetry Ingestion</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <code>/energy-monitoring/processed-data</code>
+                                    <span class="badge bg-light text-dark border">MapReduce Aggregates</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <code>/energy-monitoring/reports</code>
+                                    <span class="badge bg-light text-dark border">Exported Summaries</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/settings.js"></script>
+</body>
+</html>
+

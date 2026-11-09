@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Branches - Distributed Energy Monitoring Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="app-wrapper">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="sidebar-brand">
+                <i class="bi bi-lightning-charge-fill text-warning"></i>
+                <span>Apex Global</span>
+                <span class="badge-hadoop">HADOOP</span>
+            </a>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html"><i class="bi bi-speedometer2"></i><span>Dashboard</span></a></li>
+            <li><a href="countries.html"><i class="bi bi-globe-americas"></i><span>Countries</span></a></li>
+            <li><a href="branches.html" class="active"><i class="bi bi-building"></i><span>Branches</span></a></li>
+            <li><a href="energy-monitoring.html"><i class="bi bi-activity"></i><span>Energy Monitoring</span></a></li>
+            <li><a href="analytics.html"><i class="bi bi-diagram-3-fill"></i><span>Analytics</span></a></li>
+            <li><a href="alerts.html"><i class="bi bi-exclamation-triangle-fill"></i><span>Alerts</span></a></li>
+            <li><a href="reports.html"><i class="bi bi-file-earmark-bar-graph"></i><span>Reports</span></a></li>
+            <li><a href="settings.html"><i class="bi bi-gear-fill"></i><span>Settings</span></a></li>
+            <li class="mt-4"><a href="javascript:void(0)" onclick="API.logout()" class="text-danger"><i class="bi bi-box-arrow-left"></i><span>Logout</span></a></li>
+        </ul>
+    </aside>
+
+    <div class="content-wrapper">
+        <header class="top-navbar">
+            <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-sm btn-outline-secondary d-lg-none" id="sidebarToggle"><i class="bi bi-list fs-5"></i></button>
+                <h5 class="m-0 fw-bold">Company Branches & IoT Meter Registry</h5>
+            </div>
+            <div>
+                <span class="badge bg-secondary-subtle text-secondary px-3 py-2">9 Branches Across 4 Nations</span>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="panel-card">
+                <div class="panel-card-header">
+                    <h6 class="panel-card-title"><i class="bi bi-buildings text-primary"></i> Operating Branches & Baseline Consumption</h6>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-custom">
+                        <thead>
+                            <tr>
+                                <th>Branch & Location</th>
+                                <th>Facility Type</th>
+                                <th>Country</th>
+                                <th>Active Meters</th>
+                                <th>Total Consumption</th>
+                                <th>Baseline Average</th>
+                                <th>Peak Spike</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-branches-body">
+                            <tr><td colspan="7" class="text-center py-4 text-muted">Loading branch records...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/branches.js"></script>
+</body>
+</html>
+

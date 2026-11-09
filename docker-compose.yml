@@ -1,0 +1,122 @@
+version: '3.8'
+
+services:
+  # Flask Web Backend & Frontend App
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: energy-monitoring-app
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - DATABASE_URL=sqlite:///energy_monitoring.db
+      - HADOOP_NAMENODE_URI=hdfs://namenode:9000
+      - HDFS_RAW_DATA_PATH=/energy-monitoring/raw-data
+      - HDFS_PROCESSED_PATH=/energy-monitoring/processed-data
+      - HDFS_REPORTS_PATH=/energy-monitoring/reports
+    volumes:
+      - .:/app
+    depends_on:
+      - namenode
+      - resourcemanager
+    networks:
+      - hadoop-net
+
+  # Apache Hadoop Namenode
+  namenode:
+    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+    container_name: hadoop-namenode
+    restart: always
+    ports:
+      - "9870:9870"
+      - "9000:9000"
+    environment:
+      - CLUSTER_NAME=energy-cluster
+    env_file:
+      - ./hadoop.env
+    volumes:
+      - hadoop_namenode:/hadoop/dfs/name
+    networks:
+      - hadoop-net
+
+  # Apache Hadoop Datanode
+  datanode:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: hadoop-datanode
+    restart: always
+    ports:
+      - "9864:9864"
+    environment:
+      - SERVICE_PRECONDITION=namenode:9000
+    env_file:
+      - ./hadoop.env
+    volumes:
+      - hadoop_datanode:/hadoop/dfs/data
+    depends_on:
+      - namenode
+    networks:
+      - hadoop-net
+
+  # Apache Hadoop YARN ResourceManager
+  resourcemanager:
+    image: bde2020/hadoop-resourcemanager:2.0.0-hadoop3.2.1-java8
+    container_name: hadoop-resourcemanager
+    restart: always
+    ports:
+      - "8088:8088"
+    environment:
+      - SERVICE_PRECONDITION=namenode:9000 datanode:9864
+    env_file:
+      - ./hadoop.env
+    depends_on:
+      - namenode
+      - datanode
+    networks:
+      - hadoop-net
+
+  # Apache Hadoop YARN NodeManager
+  nodemanager:
+    image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
+    container_name: hadoop-nodemanager
+    restart: always
+    ports:
+      - "8042:8042"
+    environment:
+      - SERVICE_PRECONDITION=namenode:9000 datanode:9864 resourcemanager:8088
+    env_file:
+      - ./hadoop.env
+    depends_on:
+      - namenode
+      - datanode
+      - resourcemanager
+    networks:
+      - hadoop-net
+
+  # Apache Hive Metastore & Server
+  hive-server:
+    image: bde2020/hive:2.3.2-postgresql-metastore
+    container_name: hive-server
+    restart: always
+    ports:
+      - "10000:10000"
+      - "10002:10002"
+    environment:
+      - SERVICE_PRECONDITION=namenode:9000 datanode:9864 hive-metastore:9083
+    env_file:
+      - ./hadoop.env
+    depends_on:
+      - namenode
+      - datanode
+    networks:
+      - hadoop-net
+
+volumes:
+  hadoop_namenode:
+  hadoop_datanode:
+
+networks:
+  hadoop-net:
+    driver: bridge
+
